@@ -61,8 +61,9 @@ Note that the "helloworld" and "python" names used in this command are arbitrary
 
 ## Run Locally
 
-```
-docker run --rm -p 9090:8080 -e PORT=8080 uclchem:python
+```sh
+docker run -p 9090:8080 -e PORT=8080 uclchem:python
+# docker run --rm -p 9090:8080 -e PORT=8080 uclchem:python
 ```
 
 This command is used to run a Docker container based on the "helloworld" image with the tag "python" that was built using the Dockerfile.
@@ -73,6 +74,12 @@ The "-e PORT=8080" option sets an environment variable named "PORT" inside the c
 
 The "--rm" option tells Docker to automatically remove the container when it exits.
 
+In development mode:
+
+```sh
+docker run -it -p 9090:8080 -e PORT=8080 --mount "type=bind, source=$(pwd), target=/app/" uclchem:python
+```
+
 ## Deploy
 
 ```sh
@@ -81,7 +88,7 @@ export GOOGLE_CLOUD_PROJECT=uclchem-388009
 
 # Submit a build using Google Cloud Build
 gcloud builds submit --tag gcr.io/uclchem-388009/uclchem
-# gcloud builds submit --tag gcr.io/${GOOGLE_CLOUD_PROJECT}/uclchem
+# or gcloud builds submit --tag gcr.io/${GOOGLE_CLOUD_PROJECT}/uclchem
 
 # Deploy to Cloud Run
 gcloud run deploy uclchem --image gcr.io/uclchem-388009/uclchem
