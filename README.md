@@ -1,45 +1,9 @@
-# Cloud Run Hello World Sample
+# API for UCLCHEM
 
-This sample shows how to deploy a Hello World application to Cloud Run.
+visit (UCLCHEM) [https://uclchem.github.io/] for its documentation.
 
-[![Run in Google Cloud][run_img]][run_link]
+This project is not affiliated with UCLCHEM. It is a simple API for UCLCHEM.
 
-[run_img]: https://storage.googleapis.com/cloudrun/button.svg
-[run_link]: https://console.cloud.google.com/cloudshell/editor?shellonly=true&cloudshell_image=gcr.io/cloudrun/button&cloudshell_git_repo=https://github.com/GoogleCloudPlatform/python-docs-samples&cloudshell_working_dir=run/helloworld
+It is written in Python and uses the Flask framework. It is currently hosted on Google Cloud Platform.
 
-## Build
-
-```
-docker build --tag helloworld:python .
-```
-
-## Run Locally
-
-```
-docker run --rm -p 9090:8080 -e PORT=8080 helloworld:python
-```
-
-## Test
-
-```
-pytest
-```
-
-_Note: you may need to install `pytest` using `pip install pytest`._
-
-## Deploy
-
-```sh
-# Set an environment variable with your GCP Project ID
-export GOOGLE_CLOUD_PROJECT=<PROJECT_ID>
-
-# Submit a build using Google Cloud Build
-gcloud builds submit --tag gcr.io/${GOOGLE_CLOUD_PROJECT}/helloworld
-
-# Deploy to Cloud Run
-gcloud run deploy helloworld \
---image gcr.io/${GOOGLE_CLOUD_PROJECT}/helloworld
-```
-
-
-For more details on how to work with this sample read the [Python Cloud Run Samples README](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/main/run)
+_NOTE_: This is a work in progress. The API is not yet complete.
