@@ -1,7 +1,10 @@
 from flask import Flask, request, jsonify
 import os
 from uclchem.src import uclchem
+from pathlib import Path as pt
+
 app = Flask(__name__)
+output_dir = pt('./outputs')
 
 @app.route("/")
 def main():
@@ -15,8 +18,18 @@ def api():
     
     if status < 0:
         return jsonify({'status': status, 'results': uclchem.utils.check_error(status)})
+    
+    if not output_dir.exists():
+        output_dir.mkdir()
+    
+    results = {'status': status, 'results': {'abundaces': abundances}}
+    
+    if 'outputFile' in data:
+        output_file = output_dir / data['outputFile']
+        df = uclchem.analysis.read_output_file("../examples/test-output/static-full.dat")
+        results['results']['full_output'] = df.to_json()
         
-    return jsonify({'status': status, 'results': {'abundaces': abundances}})
+    return jsonify(results)
 
 
 if __name__ == "__main__":
