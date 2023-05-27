@@ -1,33 +1,36 @@
 from flask import Flask, request, jsonify
-import os
 from uclchem.src import uclchem
 from pathlib import Path as pt
+import os
+
 
 app = Flask(__name__)
 output_dir = pt('./outputs')
 
 @app.route("/")
 def main():
-    return "<h1>UCLCHEM API - Working</h1>"
+    return "<h1>UCLCHEM API - Working!!</h1>"
 
 @app.route("/api/simple_model", methods=['POST'])
 def api():
-    data: dict = request.get_json()
-    out_species = data.pop('out_species') if 'out_species' in data else None
-    status, *abundances = uclchem.model.cloud(param_dict=data, out_species=out_species)
+    parameters: dict = request.get_json()
+    out_species = parameters.pop('out_species') if 'out_species' in parameters else None
+    
+    for key in ['outputFile', 'abundSaveFile']:
+        if key in parameters:
+            if not output_dir.exists():
+                output_dir.mkdir()
+            parameters[key] = str(output_dir / parameters[key])
+            
+    status, *abundances = uclchem.model.cloud(param_dict=parameters, out_species=out_species)
     
     if status < 0:
         return jsonify({'status': status, 'results': uclchem.utils.check_error(status)})
     
     results = {'status': status, 'results': {'abundaces': abundances}}
     
-    if 'outputFile' in data:
-        
-        if not output_dir.exists():
-            output_dir.mkdir()
-            
-        output_file = output_dir / data['outputFile']
-        df = uclchem.analysis.read_output_file(output_file)
+    if 'outputFile' in parameters:
+        df = uclchem.analysis.read_output_file(parameters['outputFile'])
         results['results']['full_output'] = df.to_json()
         
     return jsonify(results)
