@@ -19,14 +19,15 @@ def api():
     if status < 0:
         return jsonify({'status': status, 'results': uclchem.utils.check_error(status)})
     
-    if not output_dir.exists():
-        output_dir.mkdir()
-    
     results = {'status': status, 'results': {'abundaces': abundances}}
     
     if 'outputFile' in data:
+        
+        if not output_dir.exists():
+            output_dir.mkdir()
+            
         output_file = output_dir / data['outputFile']
-        df = uclchem.analysis.read_output_file("../examples/test-output/static-full.dat")
+        df = uclchem.analysis.read_output_file(output_file)
         results['results']['full_output'] = df.to_json()
         
     return jsonify(results)
