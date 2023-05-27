@@ -77,7 +77,8 @@ The "--rm" option tells Docker to automatically remove the container when it exi
 In development mode:
 
 ```sh
-docker run -it -p 9090:8080 -e PORT=8080 --mount "type=bind, source=$(pwd), target=/app/" uclchem:python
+docker run -it -p 9090:8080 -e PORT=8080 --mount "type=bind,source=$(pwd),target=/app/" uclchem:python
+# NOTE: Do not delete the space between source and $()
 ```
 
 ## Deploy
