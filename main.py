@@ -18,6 +18,7 @@ def api():
         output_dir.mkdir()
         
     parameters: dict = request.get_json()
+    print(f"{parameters=}")
     out_species = parameters.pop('out_species') if 'out_species' in parameters else None
     
     for key in ['outputFile', 'abundSaveFile']:
@@ -33,6 +34,7 @@ def api():
     time_start = perf_counter()
     status, *abundances = uclchem.model.cloud(param_dict=parameters, out_species=out_species)
     final_time = perf_counter() - time_start
+    print(f"Calculation took {final_time:.2f} seconds")
     
     if status < 0:
         return jsonify({'status': status, 'results': uclchem.utils.check_error(status)})
