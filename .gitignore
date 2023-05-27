@@ -7,3 +7,4 @@ uclchem/src/fortran_src/*.mod
 outputs/*
 *.pyc
 __pycache__/*
+*.dat
