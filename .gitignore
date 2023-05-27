@@ -1,2 +1,9 @@
+uclchem/build/*
+uclchem/src/uclchem/*.so
+uclchem/uclchem.egg-info/*
+uclchem/src/fortran_src/*.o
+uclchem/src/fortran_src/*.mod
 
+outputs/*
 *.pyc
+__pycache__/*
