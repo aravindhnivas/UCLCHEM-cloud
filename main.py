@@ -16,7 +16,7 @@ def api():
     parameters: dict = request.get_json()
     out_species = parameters.pop('out_species') if 'out_species' in parameters else None
     
-    for key in ['outputFile', 'abundSaveFile']:
+    for key in ['outputFile', 'abundSaveFile', 'columnFile']:
         if key in parameters:
             if not output_dir.exists():
                 output_dir.mkdir()
