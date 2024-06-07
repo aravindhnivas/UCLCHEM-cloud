@@ -55,9 +55,9 @@ CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 main:app
 docker build --tag uclchem:python .
 ```
 
-This command is used to build a Docker image named "helloworld" with the tag "python" using the Dockerfile in the current directory (denoted by the dot at the end of the command).
+This command is used to build a Docker image named "uclchem" with the tag "python" using the Dockerfile in the current directory (denoted by the dot at the end of the command).
 
-Note that the "helloworld" and "python" names used in this command are arbitrary and can be changed to whatever names you prefer.
+Note that the "uclchem" and "python" names used in this command are arbitrary and can be changed to whatever names you prefer.
 
 ## Run Locally
 
@@ -66,7 +66,7 @@ docker run -p 9090:8080 -e PORT=8080 uclchem:python
 # docker run --rm -p 9090:8080 -e PORT=8080 uclchem:python
 ```
 
-This command is used to run a Docker container based on the "helloworld" image with the tag "python" that was built using the Dockerfile.
+This command is used to run a Docker container based on the "uclchem" image with the tag "python" that was built using the Dockerfile.
 
 The "-p 9090:8080" option maps port 8080 inside the container to port 9090 on the host machine. This allows the application running inside the container to be accessible from the host machine using the URL <http://localhost:9090>.
 
