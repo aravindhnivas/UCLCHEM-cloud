@@ -8,3 +8,5 @@ outputs/*
 *.pyc
 __pycache__/*
 *.dat
+*.egg-info
+.DS_Store
